@@ -39,10 +39,10 @@ class Vsop87AEphemerisFactory(
         ) throw IllegalArgumentException()
     }
 
-    fun createGeocentricEquatorialEphemeris(heliocentricEclipticJ200Ephemeris: Ephemeris, epoch: Epoch) {
-        if (heliocentricEclipticJ200Ephemeris.metadata.plane != Plane.Ecliptic ||
-            heliocentricEclipticJ200Ephemeris.metadata.epoch != Epoch.J2000 ||
-            heliocentricEclipticJ200Ephemeris.metadata.orbit != Orbit.Heliocentric
+    fun createGeocentricEquatorialEphemeris(heliocentricEclipticJ2000Ephemeris: Ephemeris, epoch: Epoch): Ephemeris {
+        if (heliocentricEclipticJ2000Ephemeris.metadata.plane != Plane.Ecliptic ||
+            heliocentricEclipticJ2000Ephemeris.metadata.epoch != Epoch.J2000 ||
+            heliocentricEclipticJ2000Ephemeris.metadata.orbit != Orbit.Heliocentric
         ) throw IllegalArgumentException()
 
         val currentMetadata = Metadata(
@@ -50,17 +50,17 @@ class Vsop87AEphemerisFactory(
             plane = Plane.Equatorial,
             epoch = epoch
         )
-        when (epoch) {
+        return when (epoch) {
             Epoch.J2000 -> object : Ephemeris {
                 override val metadata: Metadata = currentMetadata
 
                 override suspend fun invoke(jT: JT): Vector = coroutineScope {
-                    val body = async(Dispatchers.Default) { heliocentricEclipticJ200Ephemeris(jT) }
+                    val body = async(Dispatchers.Default) { heliocentricEclipticJ2000Ephemeris(jT) }
                     val earth = async(Dispatchers.Default) { earthEphemeris(jT) }
                     val geoBody = body.await() - earth.await()
                     val oneWayDown = geoBody.spherical.r * LIGHT_TIME_DAYS_PER_AU
 
-                    (heliocentricEclipticJ200Ephemeris(jT - (oneWayDown / JULIAN_DAYS_PER_CENTURY).jT) - earth.await())
+                    (heliocentricEclipticJ2000Ephemeris(jT - (oneWayDown / JULIAN_DAYS_PER_CENTURY).jT) - earth.await())
                         .let { obliquity.rotatePlane(it, Plane.Equatorial) }
                 }
             }
@@ -69,7 +69,7 @@ class Vsop87AEphemerisFactory(
                     override val metadata: Metadata = currentMetadata
 
                     override suspend fun invoke(jT: JT): Vector = coroutineScope {
-                        val body = async(Dispatchers.Default) { heliocentricEclipticJ200Ephemeris(jT) }
+                        val body = async(Dispatchers.Default) { heliocentricEclipticJ2000Ephemeris(jT) }
                         val earth = async(Dispatchers.Default) { earthEphemeris(jT) }
                         val geoBody = body.await() - earth.await()
                         val oneWayDown = geoBody.spherical.r * LIGHT_TIME_DAYS_PER_AU
@@ -83,7 +83,7 @@ class Vsop87AEphemerisFactory(
                                     )
                                 }
                                 val bodyVelocity = async(Dispatchers.Default) {
-                                    heliocentricEclipticJ200Ephemeris.getVelocity(
+                                    heliocentricEclipticJ2000Ephemeris.getVelocity(
                                         body.await(),
                                         jT,
                                     )
@@ -93,7 +93,6 @@ class Vsop87AEphemerisFactory(
                             .let { obliquity.rotatePlane(it, Plane.Equatorial) }
                             .let { precession.changeEpoch(it, Epoch.Apparent) }
                             .let { nutation.apply(it, Plane.Equatorial) }
-                            .spherical
                     }
                 }
             }
