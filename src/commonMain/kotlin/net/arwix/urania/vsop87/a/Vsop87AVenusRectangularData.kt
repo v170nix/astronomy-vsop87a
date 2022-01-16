@@ -1,4 +1,4 @@
-package net.arwix.urania.vsop87a
+package net.arwix.urania.vsop87.a
 
 /*
    VENUS - VSOP87 Series Version A

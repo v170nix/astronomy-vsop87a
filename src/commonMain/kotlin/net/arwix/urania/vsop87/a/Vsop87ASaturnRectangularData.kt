@@ -1,4 +1,4 @@
-package net.arwix.urania.vsop87a
+package net.arwix.urania.vsop87.a
 
 object Vsop87ASaturnRectangularData: VsopRectangularData() {
     override val X0 by lazy {

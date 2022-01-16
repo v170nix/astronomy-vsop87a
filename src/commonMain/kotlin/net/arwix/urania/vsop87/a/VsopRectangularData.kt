@@ -1,6 +1,6 @@
 @file:Suppress("PropertyName")
 
-package net.arwix.urania.vsop87a
+package net.arwix.urania.vsop87.a
 
 abstract class VsopRectangularData {
     internal abstract val X0: Array<DoubleArray>

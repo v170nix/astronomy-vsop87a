@@ -1,4 +1,5 @@
-package net.arwix.urania.vsop87a
+package net.arwix.urania.vsop87.a
+
 /*
    MERCURY - VSOP87 Series Version A
    HELIOCENTRIC DYNAMICAL ECLIPTIC AND EQUINOX J2000
