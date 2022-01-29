@@ -4,9 +4,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.yield
-import net.arwix.urania.core.Ecliptic
-import net.arwix.urania.core.Heliocentric
-import net.arwix.urania.core.J2000
+import net.arwix.urania.core.annotation.Ecliptic
+import net.arwix.urania.core.annotation.Heliocentric
+import net.arwix.urania.core.annotation.J2000
 import net.arwix.urania.core.calendar.JT
 import net.arwix.urania.core.calendar.jT
 import net.arwix.urania.core.ephemeris.*

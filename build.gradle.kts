@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "net.arwix.urania"
-version = "0.0.2"
+version = "1.0-alpha11"
 
 repositories {
     mavenCentral()
@@ -40,7 +40,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-                implementation("net.arwix.urania:astronomy-core:0.1-alpha03")
+                implementation("net.arwix.urania:astronomy-core:1.0-alpha11")
             }
         }
         val commonTest by getting {

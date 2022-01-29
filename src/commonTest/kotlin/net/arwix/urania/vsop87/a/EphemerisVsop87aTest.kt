@@ -6,8 +6,8 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import net.arwix.urania.core.calendar.toJT
 import net.arwix.urania.core.ephemeris.Epoch
-import net.arwix.urania.core.math.angle.toDec
-import net.arwix.urania.core.math.angle.toRA
+import net.arwix.urania.core.math.angle.toDeclination
+import net.arwix.urania.core.math.angle.toRightAscension
 import net.arwix.urania.core.spherical
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -32,30 +32,30 @@ class EphemerisVsop87aTest {
 
         runTest {
             sunJ2000Ephemeris(time).let {
-                assertEquals("19h 28m 21.97s", it.spherical.phi.toRA().toString())
-                assertEquals("-21deg 53m 2.4s", it.spherical.theta.toDec().toString())
+                assertEquals("19h 28m 21.97s", it.spherical.phi.toRightAscension().toString())
+                assertEquals("-21deg 53m 2.4s", it.spherical.theta.toDeclination().toString())
             }
             sunApparentEphemeris(time).let {
-                assertEquals("19h 29m 38.22s", it.spherical.phi.toRA().toString())
-                assertEquals("-21deg 50m 24.6s", it.spherical.theta.toDec().toString())
+                assertEquals("19h 29m 38.22s", it.spherical.phi.toRightAscension().toString())
+                assertEquals("-21deg 50m 24.6s", it.spherical.theta.toDeclination().toString())
             }
 
             marsJ2000Ephemeris(time).let {
-                assertEquals("17h 16m 8.64s", it.spherical.phi.toRA().toString())
-                assertEquals("-23deg 17m 53.5s", it.spherical.theta.toDec().toString())
+                assertEquals("17h 16m 8.64s", it.spherical.phi.toRightAscension().toString())
+                assertEquals("-23deg 17m 53.5s", it.spherical.theta.toDeclination().toString())
             }
             marsApparentEphemeris(time).let {
-                assertEquals("17h 17m 26.51s", it.spherical.phi.toRA().toString())
-                assertEquals("-23deg 19m 18.2s", it.spherical.theta.toDec().toString())
+                assertEquals("17h 17m 26.51s", it.spherical.phi.toRightAscension().toString())
+                assertEquals("-23deg 19m 18.2s", it.spherical.theta.toDeclination().toString())
             }
 
             uranusJ2000Ephemeris(time).let {
-                assertEquals("2h 32m 59.9s", it.spherical.phi.toRA().toString())
-                assertEquals("14deg 36m 2.7s", it.spherical.theta.toDec().toString())
+                assertEquals("2h 32m 59.9s", it.spherical.phi.toRightAscension().toString())
+                assertEquals("14deg 36m 2.7s", it.spherical.theta.toDeclination().toString())
             }
             uranusApparentEphemeris(time).let {
-                assertEquals("2h 34m 11.92s", it.spherical.phi.toRA().toString())
-                assertEquals("14deg 41m 49.2s", it.spherical.theta.toDec().toString())
+                assertEquals("2h 34m 11.92s", it.spherical.phi.toRightAscension().toString())
+                assertEquals("14deg 41m 49.2s", it.spherical.theta.toDeclination().toString())
             }
         }
     }
